@@ -1,0 +1,59 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: cmdb-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-cmdb123456}
+      MYSQL_DATABASE: ${DB_NAME:-cmdb}
+      TZ: Asia/Shanghai
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-p${DB_PASSWORD:-cmdb123456}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - cmdb
+
+  backend:
+    build: ./backend
+    container_name: cmdb-backend
+    restart: unless-stopped
+    environment:
+      CMDB_SERVER_MODE: release
+      CMDB_DB_HOST: mysql
+      CMDB_DB_PORT: "3306"
+      CMDB_DB_USER: root
+      CMDB_DB_PASSWORD: ${DB_PASSWORD:-cmdb123456}
+      CMDB_DB_NAME: ${DB_NAME:-cmdb}
+      CMDB_JWT_SECRET: ${JWT_SECRET:-please-change-this-secret}
+      CMDB_LOG_FORMAT: json
+      TZ: Asia/Shanghai
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - cmdb
+
+  frontend:
+    build: ./frontend
+    container_name: cmdb-frontend
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-80}:80"
+    depends_on:
+      - backend
+    networks:
+      - cmdb
+
+volumes:
+  mysql_data:
+
+networks:
+  cmdb:
+    driver: bridge

@@ -1,0 +1,25 @@
+# CMDB 主机部署配置示例
+# 部署为 /opt/cmdb/config.yaml，按实际环境修改后 systemctl restart cmdb
+
+server:
+  host: "127.0.0.1"     # 仅本机监听，由 Nginx 对外代理
+  port: 8080
+  mode: "release"
+
+database:
+  host: "127.0.0.1"
+  port: 3306
+  user: "cmdb"
+  password: "CHANGE_ME"
+  name: "cmdb"
+  charset: "utf8mb4"
+  max_idle: 10
+  max_open: 100
+
+jwt:
+  secret: "CHANGE_ME_TO_A_RANDOM_LONG_SECRET"
+  expire_hours: 24
+
+log:
+  level: "info"
+  format: "json"

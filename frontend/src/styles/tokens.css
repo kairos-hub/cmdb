@@ -1,0 +1,144 @@
+/*
+ * 全局设计 Token（统一主题）
+ * - 一处定义品牌色 / 中性色 / 圆角 / 阴影 / 间距，全站引用，便于统一与换肤。
+ * - 同时把 Element Plus 的主色接到品牌色上：改下面「品牌色」一组，EP 的按钮/链接/
+ *   选中态/开关等都会跟着变（EP 的 primary 浅色梯度一并给出，换色时同组一起改）。
+ * 本文件在 element-plus 样式之后引入（见 main.js），覆盖优先级更高。
+ */
+:root {
+  /* —— 品牌色（主色）—— 稳重亮蓝；浅色梯度按 EP 混色规则同步算好 —— */
+  --brand: #2f66f0;
+  --brand-dark: #2854cc; /* 深一档：hover / 渐变用 */
+  --brand-light: #ecf2fe; /* 浅底：选中行 / 标签底 */
+
+  /* —— 导航 —— */
+  --nav-bg: #122d52;
+  --nav-bg-soft: #1a3d67;
+  --nav-active-bg: #234b7c;
+  --nav-text: #e1edff;
+  --nav-text-dim: #c2d7f3;
+  --nav-text-active: #ffffff;
+  --nav-heading: #f5f9ff;
+  --nav-border: #294b73;
+  --nav-scroll: #80a9d7;
+  --nav-active-indicator: #86d6ff;
+
+  /* —— 中性色（与 Element Plus 调色板对齐，供自定义样式引用） —— */
+  --text-primary: #1e293b;
+  --text-regular: #475569;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --border-base: #dce3ec;
+  --border-light: #eef1f6;
+  --card-border: #e7ecf3;
+  --fill-bg: #f1f5f9; /* 浅灰底 */
+  --fill-bg-soft: #f6f8fb;
+  --page-bg: #f0f4fa; /* 页面背景 */
+  --table-row-hover: #edf4fd;
+  --table-row-selected: #dfeeff;
+  --card-bg: #ffffff; /* 卡片/面板背景（深色模式下翻深） */
+
+  /* —— 语义色 + 浅底（标签/状态点用） —— */
+  --success: #16a34a;
+  --success-bg: #dcfce7;
+  --warning: #d97706;
+  --warning-bg: #fef3c7;
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+  --info: #2563eb;
+  --info-bg: #dbeafe;
+  --purple: #7c3aed;
+  --purple-bg: #ede9fe;
+
+  /* —— 圆角 / 阴影 / 间距 —— */
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-lg: 14px;
+  --shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.03);
+  --shadow-card-hover: 0 4px 14px rgba(16, 24, 40, 0.08);
+  --shadow-pop: 0 8px 28px rgba(16, 24, 40, 0.14);
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+
+  /* —— 把 Element Plus 主色接到品牌色（换色时与上面 --brand 同步修改这组浅色梯度）—— */
+  --el-color-primary: var(--brand);
+  --el-color-primary-light-3: #6b94f5;
+  --el-color-primary-light-5: #97b6f9;
+  --el-color-primary-light-7: #c2d4fb;
+  --el-color-primary-light-8: #d7e3fc;
+  --el-color-primary-light-9: var(--brand-light);
+  --el-color-primary-dark-2: var(--brand-dark);
+
+  /* 文本色接到中性色体系 */
+  --el-text-color-primary: var(--text-primary);
+  --el-text-color-regular: var(--text-regular);
+  --el-text-color-secondary: var(--text-secondary);
+  --el-border-color: var(--border-base);
+  --el-border-color-light: var(--border-light);
+  --el-border-color-lighter: var(--border-light);
+  --el-fill-color-light: var(--fill-bg);
+  --el-fill-color-lighter: var(--fill-bg-soft);
+
+  /* 统一圆角基准（按钮/输入框/卡片） */
+  --el-border-radius-base: var(--radius);
+  --el-border-radius-small: var(--radius-sm);
+}
+
+/* —— 深色模式 —— */
+html.dark {
+  --brand: #65aaff;
+  --brand-dark: #3e83dc;
+  --brand-light: #1a3455;
+  --tech-accent: #66dcf5;
+
+  --nav-bg: #111e30;
+  --nav-bg-soft: #182a41;
+  --nav-active-bg: #1c3958;
+  --nav-text: #b3c3d9;
+  --nav-text-dim: #8da2bf;
+  --nav-text-active: #f3f8ff;
+  --nav-heading: #f3f8ff;
+  --nav-border: #273b56;
+  --nav-scroll: #465e7b;
+
+  --text-primary: #edf4ff;
+  --text-regular: #c7d5e9;
+  --text-secondary: #a0b2cb;
+  --text-muted: #8396b2;
+  --border-base: #344762;
+  --border-light: #26364d;
+  --card-border: #2a3c55;
+  --fill-bg: #1e2e45;
+  --fill-bg-soft: #172438;
+  --page-bg: #0e1521;
+  --card-bg: #152133;
+  --overlay-bg: #202e44;
+  --table-row-hover: #1c314b;
+  --table-row-selected: #213d5c;
+  --shadow-card: 0 4px 14px #050b1738;
+  --shadow-pop: 0 12px 30px #0409148c;
+
+  --success: #57d8a5;
+  --warning: #ffbf70;
+  --danger: #ff8294;
+  --info: #7cb9ff;
+  --purple: #c4a1ff;
+  --success-bg: #143c36;
+  --warning-bg: #3c3025;
+  --danger-bg: #402634;
+  --info-bg: #1a3455;
+  --purple-bg: #30274f;
+
+  --el-bg-color: var(--card-bg);
+  --el-bg-color-overlay: var(--overlay-bg);
+  --el-bg-color-page: var(--page-bg);
+  --el-fill-color-blank: var(--card-bg);
+  --el-color-primary-light-3: #4787d3;
+  --el-color-primary-light-5: #3566a2;
+  --el-color-primary-light-7: #294d77;
+  --el-color-primary-light-8: #233f63;
+}

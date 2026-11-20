@@ -1,0 +1,26 @@
+# CMDB 后端配置示例
+# 优先级：环境变量 > 本文件 > 内置默认值
+# 环境变量命名见 internal/config/config.go（如 CMDB_DB_HOST、CMDB_DB_PASSWORD）
+
+server:
+  host: "0.0.0.0"
+  port: 8080
+  mode: "debug"        # debug | release
+
+database:
+  host: "127.0.0.1"
+  port: 3306
+  user: "cmdb"
+  password: "change-me"
+  name: "cmdb"
+  charset: "utf8mb4"
+  max_idle: 10
+  max_open: 100
+
+jwt:
+  secret: "replace-with-random-secret"
+  expire_hours: 24
+
+log:
+  level: "info"         # debug | info | warn | error
+  format: "text"        # text | json

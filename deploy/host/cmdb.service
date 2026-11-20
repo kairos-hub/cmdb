@@ -1,0 +1,21 @@
+[Unit]
+Description=CMDB Server
+Documentation=https://github.com/cmdb/cmdb
+After=network.target mysql.service mysqld.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=cmdb
+Group=cmdb
+WorkingDirectory=/opt/cmdb
+ExecStart=/opt/cmdb/cmdb-server -config /opt/cmdb/config.yaml
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+# 日志（也可去掉改用 journald）
+StandardOutput=append:/var/log/cmdb/server.log
+StandardError=append:/var/log/cmdb/server.log
+
+[Install]
+WantedBy=multi-user.target
